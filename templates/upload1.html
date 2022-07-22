@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <title>데일리영수증</title>
+    <meta name="author" content="데일리팀" />
+    <meta name="description" content="영수증 내용 자동인식 서비스" />
+    <meta name="keywords" content="영수증정리, 영수증이미지, 영수증자동서비스" />
+    <link rel="stylesheet" href="/static/common.css" />
+    <link rel="stylesheet" href="/static/upload.css" />
+  </head>
+
+  <body>
+    <nav>
+      <div class="inner">
+        <div class="nav-container">
+          <h1 class="nav-title"><a href="./index.html">데일리영수증</a></h1>
+
+          <div class="sign-container">
+            <!-- 비회원 -->
+            <div class="unsigned">
+              <a href="./signin.html">로그인/회원가입</a>
+            </div>
+
+            <!-- 회원 -->
+            <div class="signed hidden">
+              <div class="dropdown">
+                <div class="dropdown-button">
+                  안녕하세요. <span class="nickname"></span>님.
+                </div>
+                <div class="dropdown-content">
+                  <button id="sign-out">로그아웃</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section id="category">
+        <div class="inner">
+          <div class="category-container">
+            <h2 class="category-title">영수증을 업로드해보세요😊</h2>
+            <div class="category-list">
+    
+           
+            </div>
+            
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <div id="uploadContents" class="inner">
+        <form action="/uploader" method="POST" enctype="multipart/form-data">
+  
+          <div class="container">
+  
+            <div class="box1">
+              <span class="uploadText">결제방식</span>
+                  <br>
+                  <div class="select">
+                    <input type="radio" id="select" name="select" value="m"><label for="select">현금 💵</label>
+                    <input type="radio" id="select2" name="select" value="c"><label for="select2">신용카드 💳</label>
+                    <input type="radio" id="select3" name="select" value="c"><label for="select3">체크카드 💳</label>
+                    <input type="radio" id="select4" name="select" value="s"><label for="select4">삼성페이 🏦</label>
+                    <input type="radio" id="select5" name="select" value="k"><label for="select5">카카오페이 🏦</label>
+                    <input type="radio" id="select6" name="select" value="d"><label for="select6">당근페이 🏦</label>
+               </div>
+            </div>
+            <div class="box2 uploadText">
+              
+              영수증이미지업로드<br><br>
+              
+  
+  
+  <input type="file" name="files1" accept="image/*" onchange="previewImage(this)" />
+  <br>
+  <div class="image-container">
+    <img style="width: 500px;" id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
+  </div>
+  <div id="preview"></div>
+  
+  <br><br>
+        
+          </div>
+            <div class="box3">
+              <br>
+              <span class="uploadText">카테고리 선택</span>
+              <br>
+              <div class="selectBox">
+                <select name="fruits" class="select">
+                  <!-- <option disabled selected>식사 🍊</option> -->
+                  <option value="a">식사 🍚</option>
+                  <option value="b">카페/간식 🍭</option>
+                  <option value="c">의료/건강 💉</option>
+                  <option value="d">술/유흥 🥃</option>
+                  <option value="e">화장품 💄</option>
+                  <option value="f">자동차 🚗</option>
+                  <option value="g">교통 🚊</option>
+                  <option value="h">주거/통신 📡</option>
+                  <option value="i">문화/여가 🏌‍♀️</option>
+                  <option value="j">여행/숙박 🧳</option>
+                  <option value="k">교육 🏫</option>
+                  <option value="l">경조사 🎉</option>
+                  <option value="m">운동 👟</option>
+                  <option value="n">의류 👖</option>
+                </select>
+               
+              </div>
+              <br>
+            </div>
+            
+          <div class="box4">
+            <span class="uploadText">내용입력</span>
+              <br>
+              <textarea name="itme"></textarea>
+          </div>
+          <div class="box5">
+              <div class="file">
+                 <span id="fileName">파일이름</span>
+              </div>
+              <div class="upload">
+              <input  id="uploadButton" type="submit" value="업로드">
+          </div>
+      </form>
+  
+  
+  
+      <script>
+        function previewImage(f){
+    var file = f.files;
+    // 확장자 체크
+    if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)){
+        alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+        // 선택한 파일 초기화
+        f.outerHTML = f.outerHTML;
+        document.getElementById('preview').innerHTML = '';
+    }
+    else {
+        // FileReader 객체 사용
+        var reader = new FileReader();
+        // 파일 읽기가 완료되었을때 실행
+        reader.onload = function(rst){
+            document.querySelector('img').remove()
+            document.getElementById('preview').innerHTML = '<img src="' + rst.target.result + '">';
+            console.log(rst.target.result)
+        }
+        // 파일을 읽는다
+        reader.readAsDataURL(file[0]);
+        console.log(file[0].name)
+        document.getElementById('fileName').innerHTML = file[0].name;
+    }
+    }
+    </script>
+
+
+
+
+
+      </div>
+
+        
+      </div>
+      
+    </main>
+
+
+ 
+  </body>
+</html>

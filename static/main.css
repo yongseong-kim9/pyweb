@@ -1,0 +1,43 @@
+img {
+    width: 100px;
+    height: 50px;
+}
+
+nav ul {
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav li a {
+    text-decoration: none;
+}
+
+/* 방문하지 않은 링크 */
+nav li a:link {
+    color: black;
+}
+
+/* 방문한 링크 */
+nav li a:visited {
+    color: black;
+}
+
+/* 링크를 활성화 할 때 */
+nav li a:active {
+    color: black;
+}
+
+nav li {
+    padding: 16px;
+}
+
+nav li:first-child {
+    margin-right: auto;
+}
+
+nav li:not(:first-child) a:hover {
+    border-bottom: 2px solid black;
+}

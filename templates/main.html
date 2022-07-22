@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>데일리영수증서비스</title>
+    <link rel="stylesheet" type="text/css" href=" /static/main.css">
+    <!-- 슬라이드 라이브러리 -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        .mySwiper {
+          width: 100%;
+          height: 100%;
+        }
+        .swiper-slide {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .swiper-slide img{
+            width: 100%;
+            height: 100%;
+        }
+      </style>
+  </head>
+  <body>
+    <nav>
+    <ul>
+        <li><a href="#"><img src="{{ url_for('static', filename='img/dailyLogo.png')}}"></a></li>
+        <li><a href="#">회원가입</a></li>
+        <li><a href="login.html">로그인</a></li>
+     </ul>
+    </nav>
+    
+    <br>
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <a href="http://127.0.0.1:5000/upload"><img src="{{ url_for('static', filename='img/carosel1.png')}}"></a>
+          </div>
+          <div class="swiper-slide">
+            <a href="#"><img src="{{ url_for('static', filename='img/carosel2.png')}}"></a>
+          </div>
+          <div class="swiper-slide">
+            
+            <a href="#"><img src="{{ url_for('static', filename='img/carosel3.png')}}"></a>
+        </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+
+
+      <!-- 슬라이드 라이브러리 스와이브 자바스크립트 -->
+      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+      <script>
+        var swiper = new Swiper(".mySwiper", {
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+          }
+        });
+      </script>
+  </body>
+</html>
+
+
+
+

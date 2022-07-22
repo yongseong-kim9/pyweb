@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧾 데일리 영수증</title>
+    <style>
+
+
+.container {
+    grid-template-columns: 1fr;
+    display: grid;
+    min-height: 100vh;
+    margin: 100px;
+
+    border: #1E90FF;
+    border-style: solid;
+
+    border-color: rgb(0, 0, 0);
+    border-width: 10px;
+  }
+
+.box1, .box2, .box3, .box4, .box5 {
+      /*500이상일때 첫번째 아이템이 첫번째 컬럼부터 세번째 컬럼까지(2칸)사용*/
+
+      place-items: center;
+      display: grid;
+ 
+  }
+  
+
+
+  .box1 { background: rgb(240, 231, 231); }
+  .box2 { 
+      background: rgb(240, 231, 231);
+      grid-row: span 2;
+  }
+  .box3 {
+    background: rgb(240, 231, 231);
+  }
+  .box4{
+      background-color: rgb(240, 231, 231);
+  }
+  .box5 { 
+      background: rgb(240, 231, 231); 
+      grid-row: span 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+  }
+  .file{
+    text-align: center;
+    justify-items: center;
+  }
+  .upload{
+    margin: 10px;
+  }
+
+  /* 라디오버튼 스타일 시작 */
+  .select {
+    padding: 15px 10px;
+}
+.select input[type=radio]{
+    display: none;
+}
+.select input[type=radio]+label{
+    display: inline-block;
+    cursor: pointer;
+    height: 30px;
+    width: 150px;
+    border: 1px solid #333;
+    line-height: 24px;
+    text-align: center;
+    font-weight:bold;
+    font-size:20px;
+    margin: 1px;
+    padding: 5px;
+    place-items: center;
+    
+}
+.select input[type=radio]+label{
+    background-color: #fff;
+    color: #333;
+}
+.select input[type=radio]:checked+label{
+    background-color: #333;
+    color: #fff;
+}
+  /* 라디오버트 스타일 끝 */
+
+  /* 업로드 텍스트 */
+  .uploadText{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  /* 업로드 텍스트 스타일 끝 */
+
+  /* 텍스트에어리어 스타일 시작 */
+	textarea {
+      margin: 20px;
+			width: 100%;
+			height: 200px;
+			padding: 10px;
+			box-sizing: border-box;
+			border: solid 5px #1E90FF;
+			border-radius: 5px;
+			font-size: 16px;
+			resize: both;
+		}
+  /* textarea 스타일 끝 */
+
+  /* 콤보박스 시작 */
+  .selectBox {
+    position: relative;
+    width: 250px;
+    height: 35px;
+    border-radius: 4px;
+    border: 2px solid black;
+
+  }
+  .selectBox .select {
+    width: inherit;
+    height: inherit;
+    background: transparent;
+    border: 0 none;
+    outline: 0 none;
+    padding: 0 5px;
+    position: relative;
+    z-index: 3;
+    font-weight:bold;
+    font-size:20px;
+  }
+  .selectBox .select option {
+    background: lightcoral;
+    color: #fff;
+    padding: 3px 0;
+    font-size: 16px;
+  }
+  .selectBox .icoArrow {
+    position: absolute; 
+    top: 0; 
+    right: 0; 
+    z-index: 1; 
+    width: 35px; 
+    height: inherit;
+    border-left: 2px solid black;
+    display: flex;
+
+  }
+  
+  .selectBox .icoArrow img {
+    width: 50%;
+    transition: .3s;
+  }
+  
+  .selectBox .select:focus + .icoArrow img {
+    transform: rotate(180deg);
+  }
+
+  #uploadButton {
+  width: 200px;
+  height: 50px;
+  padding: 10px;
+}
+
+    </style>
+   
+
+<!-- 콤보박스 끝 -->
+</head>
+<body>
+    <form action="/uploader" method="POST" enctype="multipart/form-data">
+        
+        <div class="container">
+          영수증을 업로드해보세요😊
+          <div class="box1">
+            <span class="uploadText">결제방식</span>
+                <br>
+                <div class="select">
+                  <input type="radio" id="select" name="select" value="m"><label for="select">현금 💵</label>
+                  <input type="radio" id="select2" name="select" value="c"><label for="select2">신용카드 💳</label>
+                  <input type="radio" id="select3" name="select" value="c"><label for="select3">체크카드 💳</label>
+                  <input type="radio" id="select4" name="select" value="s"><label for="select4">삼성페이 🏦</label>
+                  <input type="radio" id="select5" name="select" value="k"><label for="select5">카카오페이 🏦</label>
+                  <input type="radio" id="select6" name="select" value="d"><label for="select6">당근페이 🏦</label>
+             </div>
+          </div>
+          <div class="box2 uploadText">
+            
+            영수증이미지업로드<br><br>
+            
+
+
+<input type="file" name="files1" accept="image/*" onchange="previewImage(this)" />
+<br>
+<div class="image-container">
+  <img style="width: 500px;" id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
+</div>
+<div id="preview"></div>
+
+<br><br>
+      
+        </div>
+          <div class="box3">
+            <br>
+            <span class="uploadText">카테고리 선택</span>
+            <br>
+            <div class="selectBox">
+              <select name="fruits" class="select">
+                <!-- <option disabled selected>식사 🍊</option> -->
+                <option value="0">식사 🍚</option>
+                <option value="1">카페/간식 🍭</option>
+                <option value="2">의료/건강 💉</option>
+                <option value="3">술/유흥 🥃</option>
+                <option value="4">화장품 💄</option>
+                <option value="5">자동차 🚗</option>
+                <option value="6">교통 🚊</option>
+                <option value="7">주거/통신 📡</option>
+                <option value="8">문화/여가 🏌‍♀️</option>
+                <option value="9">여행/숙박 🧳</option>
+                <option value="10">교육 🏫</option>
+                <option value="11">경조사 🎉</option>
+                <option value="12">운동 👟</option>
+                <option value="13">의류 👖</option>
+              </select>
+             
+            </div>
+            <br>
+          </div>
+          
+        <div class="box4">
+          <span class="uploadText">내용입력</span>
+            <br>
+            <textarea name="itme"></textarea>
+        </div>
+        <div class="box5">
+            <div class="file">
+               <span id="fileName">파일이름</span>
+            </div>
+            <div class="upload">
+              <a ></a>
+            <input  id="uploadButton" type="submit" value="업로드">
+        </div>
+
+    </form>
+
+
+
+    <script>
+      function previewImage(f){
+  var file = f.files;
+  // 확장자 체크
+  if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)){
+      alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+      // 선택한 파일 초기화
+      f.outerHTML = f.outerHTML;
+      document.getElementById('preview').innerHTML = '';
+  }
+  else {
+      // FileReader 객체 사용
+      var reader = new FileReader();
+      // 파일 읽기가 완료되었을때 실행
+      reader.onload = function(rst){
+          document.querySelector('img').remove()
+          document.getElementById('preview').innerHTML = '<img src="' + rst.target.result + '">';
+          console.log(rst.target.result)
+      }
+      // 파일을 읽는다
+      reader.readAsDataURL(file[0]);
+      console.log(file[0].name)
+      document.getElementById('fileName').innerHTML = file[0].name;
+  }
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/static/img/favicon.ico">
+  <title>데일리영수증</title>
+  <meta name="author" content="데일리팀" />
+  <meta name="description" content="영수증 내용 자동인식 서비스" />
+  <meta name="keywords" content="영수증정리, 영수증이미지, 영수증자동서비스" />
+  <link rel="stylesheet" href="/static/common.css" />
+  <link rel="stylesheet" href="/static/upload.css" />
+  
+  <!-- <script>
+    var data="";
+
+   window.onload = function() {
+      
+   }
+  </script> -->
+  
+</head>
+<body>
+  <nav>
+    <div class="inner">
+      <div class="nav-container">
+        <h1 class="nav-title"><a href="http://localhost:8081/day22/index.jsp"><img src="/static/img/dailyLogo.png" alt=""></a></h1>
+        <div class="sign-container">
+          <!-- 비회원 -->
+          <div class="unsigned">
+          <!-- <a href="./signin.html" class="document-submit">로그인/회원가입</a> -->
+          </div>
+
+          <!-- 회원 -->
+          <div class="signed hidden">
+            <div class="dropdown">
+              <div class="dropdown-button">
+                안녕하세요. <span class="nickname"></span>님.
+              </div>
+              <div class="dropdown-content">
+                <button id="sign-out">로그아웃</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <br><br><br><br>
+    <section id="category">
+      <div class="inner">
+        <div class="category-container">
+          <h2 class="category-title">영수증을 업로드해보세요😊</h2>
+          <div class="category-list">
+          </div>
+        </div>
+      </div>
+      <br>
+    </section>
+    <!-- http://127.0.0.1:5000/uploader -->
+    <div id="uploadContents" class="inner">
+      <form action="/uploader" method="POST" enctype="multipart/form-data" name="up">
+
+        <div class="container">
+
+          <div class="box1">
+            <span class="uploadText">결제방식</span>
+        
+         
+            <br>
+            <div class="select">
+              <input type="radio" id="select" name="select" value="m"><label for="select">현금</label>
+              <!-- 💳💵 -->
+              <input type="radio" id="select2" name="select" value="c"><label for="select2">카드</label>
+            </div>
+          </div>
+    <br> 
+
+          <div class="box2 uploadText">
+            
+            영수증이미지업로드
+            <!-- <input type="file" name="files1" accept="image/*" onchange="previewImage(this)" /> -->
+            <!-- <br> -->
+    <br> 
+    <div class="dropbox">
+      <label class="dropLabel" id="dropLabel" for="input">
+        <div class="indiv" id="indiv">
+          <img class="dropimg" src="/static/img/move.png" alt="">
+          
+          </div>
+      </label>
+      <input id="input" class="input" accept="image/*" type="file" name ="files1"required="true" multiple="true" hidden="true" onchange="previewImage(this)">
+      <p class="preview-title">미리보기</p>
+
+      <div class="image-container">
+        <div id="preview">
+          <img style="width: 500px;" id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
+        </div>
+      </div>
+    </div>
+
+            <!-- <div class="drag-area">
+              <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+              <header>이미지업로드</header>
+              <span>OR</span>
+              <button id="fileButton">파일가져오기</button>
+                <img src="img/move.png" alt="업로드아이콘" style="height: 400px; width: 400px;">
+              <input id="inputButton" type="file" hidden>
+            </div> -->
+          </div>
+          <div class="box3">
+            <br>
+            <span class="uploadText">카테고리 선택</span>
+            <br>
+            <br>
+
+            <!-- <div class="select">
+              <input type="radio" id="select3" name="select2" value="식사"><label for="select3">🍚</label>
+              <input type="radio" id="select4" name="select2" value="카페"><label for="select4">🍭</label>
+              <input type="radio" id="select5" name="select2" value="의료/건강"><label for="select5">💉</label>
+              <input type="radio" id="select6" name="select2" value="술/유흥"><label for="select6">🥃</label>
+              <input type="radio" id="select7" name="select2" value="화장품"><label for="select7">💄</label>
+              <input type="radio" id="select8" name="select2" value="자동차"><label for="select8">🚗</label>
+              <input type="radio" id="select9" name="select2" value="교통"><label for="select9">🚊</label>
+              <input type="radio" id="select10" name="select2" value="주거/통신"><label for="select10">📡</label>
+              <input type="radio" id="select11" name="select2" value="문화/여가"><label for="select11">🏌‍♀️</label>
+              <input type="radio" id="select12" name="select2" value="여행/숙박"><label for="select12">🧳</label>
+              <input type="radio" id="select13" name="select2" value="교육"><label for="select13">🏫</label>
+              <input type="radio" id="select14" name="select2" value="경조사"><label for="select14">🎉</label>
+              <input type="radio" id="select15" name="select2" value="운동"><label for="select15">👟</label>
+              <input type="radio" id="select16" name="select2" value="의류"><label for="select16">👖</label>
+            </div> -->
+            <div class="select">
+              <input type="radio" id="select3" name="select2" value="식사">
+              <label for="select3">🍚
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">밥</h1>
+               </div>
+              </label>
+              <input type="radio" id="select4" name="select2" value="카페"><label for="select4">🍭
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">카페</h1>
+               </div>
+              </label>
+              <input type="radio" id="select5" name="select2" value="의료/건강"><label for="select5">💉
+
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">의료/건강</h1>
+               </div>
+              </label>
+              <input type="radio" id="select6" name="select2" value="술/유흥"><label for="select6">🥃
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">술/유흥</h1>
+               </div>
+              </label>
+              <input type="radio" id="select7" name="select2" value="화장품"><label for="select7">💄
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">화장품</h1>
+               </div>
+              </label>
+              <input type="radio" id="select8" name="select2" value="자동차"><label for="select8">🚗
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">자동차</h1>
+               </div>
+              </label>
+              <input type="radio" id="select9" name="select2" value="교통"><label for="select9">🚊
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">교통</h1>
+               </div>
+              </label>
+              <input type="radio" id="select10" name="select2" value="주거/통신"><label for="select10">📡
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">주거/통신</h1>
+               </div>
+              </label>
+              <input type="radio" id="select11" name="select2" value="문화/여가"><label for="select11">🏌‍♀️
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">문화/여가</h1>
+               </div>
+              </label>
+              <input type="radio" id="select12" name="select2" value="여행/숙박"><label for="select12">🧳
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">여행/숙박</h1>
+               </div>
+              </label>
+              <input type="radio" id="select13" name="select2" value="교육"><label for="select13">🏫
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">교육</h1>
+               </div>
+              </label>
+              <input type="radio" id="select14" name="select2" value="경조사"><label for="select14">🎉
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">경조사</h1>
+               </div>
+              </label>
+              <input type="radio" id="select15" name="select2" value="운동"><label for="select15">👟
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">운동</h1>
+               </div>
+              </label>
+              <input type="radio" id="select16" name="select2" value="의류"><label for="select16">👖
+                <div class="cateName">
+                  <h1 id="cateName" style="font-size: 15px; padding-top: 5px;">의류</h1>
+               </div>
+              </label>
+            </div>
+            <br>        
+            <br>
+          </div>
+          <div class="box4">
+            <span class="uploadText">내용입력</span>
+            <br>
+            <textarea class="noresize" name ="itme"></textarea>
+          </div>
+          <div class="box5">
+            <!-- <div class="file">
+              <span id="fileName" style="font-size: 20px">파일이름</span>
+            </div> -->
+            <div class="file">
+              <h1 id="fileName">파일이름</h1>
+           </div>
+            <input id="abutton" type="submit" value="업로드">
+            <div class="upload">
+            </div>
+      </form>
+    </div>
+    </div>
+  </main>
+  <script src="/static/drag.js"></script>
+  <script>
+    urlSearch = new URLSearchParams(location.search);
+    data = urlSearch.get('id');
+     var theForm= document.up;
+     console.log("TEst1"+data);
+     theForm.action="http://127.0.0.1:5000/uploader?data="+data;
+     console.log("Test2"+theForm.action);
+  </script>
+</body>S
+</html>
