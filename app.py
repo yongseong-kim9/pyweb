@@ -43,6 +43,10 @@ def uploader_file():
     zzz.ocr(f,c,mt,i,inputId)
     return render_template('check.html')
 
-if __name__ == "__main__":
-   app.run(debug = True)
-   
+# if __name__ == "__main__":
+#    app.debug = True
+#    app.run(host='0.0.0.0')
+if __name__ == '__main__':
+    app.jinja_env.auto_reload = True
+    app.config["TEMPLATES_AUTO_RELOAD"] = True
+    app.run(debug=True, host='0.0.0.0')
